@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<head>
+<style>
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: sans-serif;
+    line-height: 1.5;
+    min-height: 100vh;
+    background: #f3f3f3;
+    flex-direction: column;
+    margin: 0;
+}
+
+.main {
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    padding: 10px 20px;
+    transition: transform 0.2s;
+    width: 500px;
+    text-align: center;
+}
+
+h1 {
+    color: #4CAF50;
+}
+
+label {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    text-align: left;
+    color: #555;
+    font-weight: bold;
+}
+
+input {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button {
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    background-color: #4CAF50;
+    width: 100%;
+    font-size: 16px;
+}
+
+.wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    </style>
+</head>
+
+<body>
+    <div class="main">
+        <h1>Codedeep-register</h1>
+        <h3>Enter your details</h3>
+
+        <form method="post">
+            {% csrf_token %}
+            {% if messages %}
+        <div>
+          {% for message in messages %} {{ message }} {% endfor %}
+        </div>
+        {% endif %}
+
+            <label for="username">
+                Username:
+            </label>
+            <input type="text" id="username" name="username" 
+                placeholder="Enter your Username" required>
+
+             <label for="name">
+                Name:
+            </label>
+            <input type="text" id="name" name="name"
+                placeholder="Enter your Name" required>
+
+            <label for="email">
+                Email:
+            </label>
+            <input type="email" id="email" name="email"
+                placeholder="Enter your email" required>
+
+            <label for="dob">
+                Date of birth:
+            </label>
+            <input type="date" id="dob" name="dob"
+                placeholder="Enter your date of birth" required>
+
+            <label for="sp">
+                Student/Professional:
+            </label>
+            <select id="sp">
+              <option value="student">Student</option>
+              <option value="professional">Professional</option>
+            </select>
+
+            <label for="password">
+                Password:
+            </label>
+            <input type="password" id="password" name="password" 
+                placeholder="Enter your Password" required>
+
+            <div class="wrap">
+                <button type="submit">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
