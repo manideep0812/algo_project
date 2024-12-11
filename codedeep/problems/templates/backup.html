@@ -1,0 +1,147 @@
+problemdetail.html
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <style>
+
+        body {
+          font-family: Arial;
+          color: white;
+        }
+        
+        .split {
+          height: 100%;
+          width: 50%;
+          position: fixed;
+          z-index: 1;
+          top: 0;
+          overflow-x: hidden;
+          padding-top: 20px;
+        }
+        
+        .left {
+          left: 0;
+          background-color: #111;
+        }
+        
+        .right {
+          right: 0;
+          background-color: #87ceeb;
+        }
+
+        .centered {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        </style>
+    </head>
+<body>
+<div class="split left">
+<b>{{req_problem.name}}</b>
+<br>
+{{req_problem.description}}
+<br>
+<br>
+{{req_problem.testcase1}}
+<br>
+<br>
+{{req_problem.testcase2}}
+<br>
+</div>
+<div class="split right">
+  <h1>compiler</h1>
+  <form method="post">
+      {% csrf_token %}
+      {{form.as_p}}
+      <button type="submit">Run Code</button>
+  </form>
+    </div>
+</div>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+problemresult.html
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+        body {
+          font-family: Arial;
+          color: white;
+        }
+        
+        .split {
+          height: 100%;
+          width: 50%;
+          position: fixed;
+          z-index: 1;
+          top: 0;
+          overflow-x: hidden;
+          padding-top: 20px;
+        }
+        
+        .left {
+          left: 0;
+          background-color: #111;
+        }
+        
+        .right {
+          right: 0;
+          background-color: #87ceeb;
+        }
+
+        .centered {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        </style>
+    </head>
+<body>
+<div class="split left">
+<b>{{req_problem.name}}</b>
+<br>
+{{req_problem.description}}
+<br>
+<br>
+{{req_problem.testcase1}}
+<br>
+<br>
+{{req_problem.testcase2}}
+<br>
+</div>
+<div class="split right">
+    <h1>Output Page</h1>
+    <p><strong>Language:</strong>{{language}}</p>
+    <p><strong>Code:</strong><pre>{{code}}</pre></p>
+    <p><strong>input:</strong><pre>{{inputData}}</pre></p>
+    <p><strong>Output:</strong><pre>{{outputData}}</pre></p>
+    <a href="">Run another code</a>
+</div>
+</html>

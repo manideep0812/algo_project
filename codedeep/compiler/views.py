@@ -67,7 +67,7 @@ def runCode(language,code,inputData):
         with open(inputFilePath,'r') as inputText:
             with open(outputFilePath,'w') as outputText:
                 subprocess.run(
-                    ["python3",str(codeFilePath)],
+                    ["python",str(codeFilePath)],
                     stdin=inputText,
                     stdout=outputText,
                 )
