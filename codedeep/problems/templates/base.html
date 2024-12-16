@@ -14,29 +14,42 @@
             height: 100%;
             margin: 0;
             display: flex;
-            flex-direction: column; /* Make sure content is stacked vertically */
+            flex-direction: column;
         }
 
         /* Navbar styling */
         .navbar {
-            background-color: transparent !important; /* Remove background color */
-            padding: 1rem 2rem; /* Adjust padding */
-            box-shadow: none; /* Remove any shadow */
-            position: relative; /* Make sure the navbar stays at the top */
-            z-index: 10; /* Ensure it appears above other content */
+            background-color: transparent !important;
+            padding: 1rem 2rem;
+            box-shadow: none;
+            position: relative;
+            z-index: 10;
         }
 
         .navbar-nav .nav-link {
-            color: white !important; /* Text color for navbar links */
+            color: white !important;
             font-size: 1.2rem;
         }
 
         .navbar-nav .nav-link:hover {
-            color: #f8f9fa !important; /* Hover effect color */
+            color: #f8f9fa !important;
         }
 
-        .navbar-nav.ml-auto .nav-item {
-            margin-left: 2rem;
+        /* Left side logo (Codedeep as Home button) */
+        .navbar-brand {
+            color: white !important;
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .navbar-nav.ml-auto {
+            margin-left: auto;  /* Push right side items to the right */
+        }
+
+        .navbar-nav.center {
+            flex-grow: 1; /* Centering the middle items */
+            display: flex;
+            justify-content: center;
         }
 
         .overlay {
@@ -45,26 +58,27 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); 
-            z-index: 1; /* Overlay stays behind content */
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1;
         }
 
         .content-container {
             position: relative; 
-            z-index: 2; /* Content stays above the overlay */
+            z-index: 2;
             text-align: center;
             color: white;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8); 
-            flex: 1; /* This makes the content stretch and align vertically */
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center; /* Center content vertically */
+            justify-content: center;
         }
 
         h1 {
             font-size: 4rem;
             font-weight: bold;
             margin-bottom: 1rem;
+            position: relative;
         }
 
         p {
@@ -72,41 +86,14 @@
             line-height: 1.8;
         }
 
-        /* Free-style underline animation */
-        .underline-animation {
-            position: relative;
-            display: inline-block;
-        }
-
-        .underline-animation::after {
-            content: '';
+        /* SVG Underline Styling */
+        .underline-svg {
             position: absolute;
-            bottom: 0;
+            bottom: -8px;
             left: 0;
             width: 100%;
-            height: 3px;
-            background-color: white;
-            transform: scaleX(0);
-            transform-origin: bottom left;
-            animation: freeStyleUnderline 2s ease-in-out infinite;
-        }
-
-        @keyframes freeStyleUnderline {
-            0% {
-                transform: translateX(0) scaleX(0);
-            }
-            25% {
-                transform: translateX(10px) scaleX(1);
-            }
-            50% {
-                transform: translateX(-10px) scaleX(1);
-            }
-            75% {
-                transform: translateX(5px) scaleX(1);
-            }
-            100% {
-                transform: translateX(0) scaleX(1);
-            }
+            height: 30px;
+            z-index: 1;
         }
 
         body {
@@ -120,7 +107,8 @@
     
     <!-- Navbar with Transparent Background -->
     <nav class="navbar navbar-expand-sm navbar-dark">
-        <ul class="navbar-nav">
+        <a class="navbar-brand" href="/">Codedeep</a> <!-- Home button with "Codedeep" text -->
+        <ul class="navbar-nav center"> <!-- Center section with 3 items -->
             <li class="nav-item">
                 <a class="nav-link" href="/problems">Problems</a>
             </li>
@@ -131,7 +119,7 @@
                 <a class="nav-link" href="#">Admin</a>
             </li>
         </ul>
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav ml-auto"> <!-- Right side section with Login and Register -->
             <li class="nav-item">
                 <a class="nav-link" href="/auth/login">Login</a>
             </li>
@@ -144,7 +132,12 @@
     <!-- Centered Text Content -->
     <div class="content-container">
         {% block content %}
-        <h1>Welcome to <span class="underline-animation">Codedeep</span>!</h1>
+        <h1>
+            Welcome to <span>Codedeep</span>!
+        </h1>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" preserveAspectRatio="none" class="underline-svg">
+            <path d="M9.3,127.3c49.3-3,150.7-7.6,199.7-7.4c121.9,0.4,189.9,0.4,282.3,7.2C380.1,129.6,181.2,130.6,70,139 c82.6-2.9,254.2-1,335.9,1.3c-56,1.4-137.2-0.3-197.1,9"></path>
+        </svg>
         <p>
             Join our dynamic coding community and enhance your skills with daily<br>
             practice and exciting contests. Codedeep offers a comprehensive platform<br>

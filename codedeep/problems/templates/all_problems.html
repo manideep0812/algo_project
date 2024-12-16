@@ -1,4 +1,25 @@
-{%for problem in all_problems%}
-<a href = "{{problem.id}}/">{{problem.name}}</a>
-<br>
-{% endfor %}
+{% extends 'base.html' %}
+
+{% block content %}
+<body>
+  <div class="row">
+    <div class = "col-md-9">
+      <h2>Problems</h2>
+      <ul class="list-group">
+        {%for problem in all_problems%}
+        <li class="list-group-item">
+            <a href = "{{problem.id}}/">{{problem.name}}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class = "col-md-3">
+      <label for="input">Input:</label>
+      <textarea class="form-control" id="input" rows="10" name = "input"></textarea>
+      <label for="input">Input:</label>
+      <textarea class="form-control" id="input" name = "input"></textarea>
+      <label for="input">Input:</label>
+      <textarea class="form-control" id="input" name = "input"></textarea>
+  </div>
+</body>
+{% endblock %}

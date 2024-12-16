@@ -12,16 +12,18 @@ def all_problems(request):
     }
     return render(request,"all_problems.html",context)
 
+def home_page(request):
+
+    return render(request,'base.html')
+
 #to show details of problem
 def problem_detail(request,id):
     req_problem = problem.objects.get(id=id)
     if request.method == "POST":
         language = request.POST.get('language')
         code = request.POST.get('code')
-        print('manideep4',code)
         inputData = request.POST.get('input')
         outputData = runCode(language,code,inputData)
-        print('mani',outputData)
         context = {
                     "language": language,
                     "code" : code,
