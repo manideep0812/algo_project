@@ -154,3 +154,68 @@
     </div>
 </body>
 </html>
+
+
+
+
+
+{% extends 'base.html' %}
+
+{% block title %}Contests{% endblock %}
+
+{% block content %}
+<style>
+    body {
+        background: none; /* Remove the background image */
+        background-color: #f8f9fa; /* Set a plain light background */
+    }
+
+    .container {
+        color: #212529; /* Dark text color for visibility */
+        margin-top: 50px;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .contest-card {
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 600px;
+        text-align: left;
+    }
+
+    .contest-card h3 {
+        margin: 0;
+        font-weight: bold;
+    }
+
+    .contest-card p {
+        margin: 10px 0 0;
+    }
+</style>
+
+<div class="container">
+    <h1>Upcoming Contests</h1>
+    <div class="contest-card">
+        <h3>Weekly Challenge</h3>
+        <p>Date: Sunday, 7th July 2024</p>
+        <p>Time: 5:00 PM - 7:00 PM</p>
+    </div>
+
+    <div class="contest-card">
+        <h3>Codedeep Monthly Contest</h3>
+        <p>Date: Friday, 21st July 2024</p>
+        <p>Time: 6:00 PM - 9:00 PM</p>
+    </div>
+</div>
+{% endblock %}
+

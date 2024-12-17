@@ -16,6 +16,10 @@ def home_page(request):
 
     return render(request,'base.html')
 
+def contests(request):
+
+    return render(request,'contests.html')
+
 #to show details of problem
 def problem_detail(request,id):
     req_problem = problem.objects.get(id=id)

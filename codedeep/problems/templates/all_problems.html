@@ -1,25 +1,78 @@
 {% extends 'base.html' %}
 
+{% block title %}Problems{% endblock %}
+
 {% block content %}
-<body>
-  <div class="row">
-    <div class = "col-md-9">
-      <h2>Problems</h2>
-      <ul class="list-group">
-        {%for problem in all_problems%}
-        <li class="list-group-item">
-            <a href = "{{problem.id}}/">{{problem.name}}</a>
-        </li>
-        {% endfor %}
-      </ul>
+<style>
+    /* Background color for the entire page */
+    body {
+        background: none;
+        background-color: #000; /* Black background */
+        color:rgb(65, 60, 60); /* Light white text */
+    }
+
+    h2, h4 {
+        margin-top: 20px;
+        font-weight: bold;
+        color: #f5f5f5; /* Light white heading color */
+    }
+
+    .list-group-item {
+        background-color: #333; /* Dark gray background for list items */
+        color: #e0e0e0; /* Light white text */
+        border: none;
+    }
+
+    .list-group-item a {
+        text-decoration: none;
+        color: #a8c7fa; /* Light blue for links */
+    }
+
+    .list-group-item a:hover {
+        text-decoration: underline;
+        color: #ffffff; /* White color on hover */
+    }
+
+    .notification {
+        background-color: #444; /* Darker gray background */
+        border: 1px solid #555; /* Slight border for contrast */
+        border-radius: 5px;
+        padding: 15px;
+        margin-top: 20px;
+        font-size: 0.95rem;
+        color: #f0f0f0; /* Light white text */
+    }
+</style>
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- Left Side: Problems List (3/4 of the page) -->
+        <div class="col-md-9">
+            <h2>Problems</h2>
+            <ul class="list-group">
+                {% for problem in all_problems %}
+                <li class="list-group-item">
+                    <a href="{{ problem.id }}/">{{ problem.name }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Right Side: Concepts and Notification (1/4 of the page) -->
+        <div class="col-md-3">
+            <h4>Concepts</h4>
+            <ul class="list-group">
+                <li class="list-group-item">Trees</li>
+                <li class="list-group-item">Graphs</li>
+                <li class="list-group-item">Dynamic Programming</li>
+                <li class="list-group-item">Greedy Algorithms</li>
+            </ul>
+
+            <div class="notification">
+                <strong>Next Contest:</strong>
+                <p>Join our upcoming coding contest on <strong>Sunday, 7th July 2024</strong> at <strong>5 PM</strong>. Register now to test your skills!</p>
+            </div>
+        </div>
     </div>
-    <div class = "col-md-3">
-      <label for="input">Input:</label>
-      <textarea class="form-control" id="input" rows="10" name = "input"></textarea>
-      <label for="input">Input:</label>
-      <textarea class="form-control" id="input" name = "input"></textarea>
-      <label for="input">Input:</label>
-      <textarea class="form-control" id="input" name = "input"></textarea>
-  </div>
-</body>
+</div>
 {% endblock %}
