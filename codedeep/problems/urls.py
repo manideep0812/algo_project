@@ -4,5 +4,5 @@ urlpatterns = [
     path('',home_page),
     path('contests/',contests),
     path('problems/',all_problems),
-    path('<int:id>/',problem_detail),
+    path('problems/<int:id>/',problem_detail),
 ]

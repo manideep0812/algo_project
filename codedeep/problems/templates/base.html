@@ -119,13 +119,24 @@
                 <a class="nav-link" href="/admin">Admin</a>
             </li>
         </ul>
-        <ul class="navbar-nav ml-auto"> <!-- Right side section with Login and Register -->
-            <li class="nav-item">
-                <a class="nav-link" href="/auth/login">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/auth/register">Register</a>
-            </li>
+        <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+                <!-- Show username and Logout -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Welcome, {{ user.username }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/auth/logout">Logout</a>
+                </li>
+            {% else %}
+                <!-- Show Login and Register buttons -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/auth/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/auth/register">Register</a>
+                </li>
+            {% endif %}
         </ul>
     </nav>
 
@@ -143,6 +154,10 @@
             practice and exciting contests. Codedeep offers a comprehensive platform<br>
             for coders of all levels to learn and grow.
         </p>
+        <!-- Get Started Button -->
+    <div class="text-center mt-4">
+        <a href="/auth/login" class="btn btn-primary btn-lg">Get Started</a>
+    </div>
         {% endblock %}
     </div>
 </body>

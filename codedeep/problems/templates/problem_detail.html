@@ -1,51 +1,69 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<body>
-  <div class="container-fluid p-3 my-1 bg-dark text-white">
-    <div class = "row">
-      <div class = "col-md-6">
-        <h2>
-          {{req_problem.name}} 
-        </h2>
-        <p>{{req_problem.description}}</p>
-        <p>{{req_problem.testcase1}}</p>
-        <p>{{req_problem.testcase2}}</p>
-      </div>
-      <div class = "col-md-6">
-        <h2>
-          Compiler
-        </h2>
-        <form method = "POST">
-          {% csrf_token %}
-          <div class="row">
-            <div class = "col-md-12">
-              <div class="form-group">
-                <label for="language">Language:</label>
-                <select class="form-control" id="language" name="language">
-                  <option value="c">C</option>
-                  <option value="cpp">C++</option>
-                  <option value="py">Python</option>
-                </select>
-              </div>
-            </div>
-            <div class = "col-md-12">
-              <div class="form-group">
-                <label for="code">Code:</label>
-                <textarea class="form-control" rows="12" name="code" id="code"></textarea>
-              </div>
-            </div>
-            <div class = "col-md-12">
-              <div class="form-group">
-                <label for="input">Input:</label>
-                <textarea class="form-control" rows="5" id="input" name = "input"></textarea>
-              </div>
-              <div class="col text-center">
-                <button type="submit" class="btn btn-primary" align-center>Submit</button>
-              </div>
+<style>
+  body {
+    background: none;
+    background-color: #000; /* Black background */
+    color: rgb(230, 230, 230); /* Light white text */
+  }
+  
+  .form-group label {
+    text-align: left; /* Ensures labels align properly */
+    display: block; /* Forces labels to occupy full width */
+  }
+
+  .form-control-sm {
+    width: auto; /* Adjusts the select box width to content */
+  }
+</style>
+
+<div class="container-fluid p-5">
+    <div class="row">
+        <!-- Problem Details Section -->
+        <div class="col-md-6 border-right text-left">
+            <h2 style="font-weight: bold;">{{ req_problem.name }}</h2>
+            <p>{{ req_problem.description }}</p>
+            <h5>Test Case 1:</h5>
+            <p>{{ req_problem.testcase1 }}</p>
+            <h5>Test Case 2:</h5>
+            <p>{{ req_problem.testcase2 }}</p>
+        </div>
+
+        <!-- Compiler Section -->
+        <div class="col-md-6 text-left"> <!-- Add text-left to align elements properly -->
+            <h2>Compiler</h2>
+            <form method="POST">
+                {% csrf_token %}
+
+                <!-- Language Selection -->
+                <div class="form-group">
+                    <label for="language">Language:</label>
+                    <select class="form-control form-control-sm" id="language" name="language">
+                        <option value="c">C</option>
+                        <option value="cpp">C++</option>
+                        <option value="py">Python</option>
+                    </select>
+                </div>
+
+                <!-- Code Input -->
+                <div class="form-group">
+                    <label for="code">Code:</label>
+                    <textarea class="form-control" rows="10" name="code" id="code" placeholder="Write your code here..."></textarea>
+                </div>
+
+                <!-- Input Space -->
+                <div class="form-group">
+                    <label for="input">Input:</label>
+                    <textarea class="form-control" rows="5" id="input" name="input" placeholder="Provide input here..."></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Run Code</button>
+                </div>
             </form>
-          </div>
         </div>
     </div>
-</body>
+</div>
 {% endblock %}

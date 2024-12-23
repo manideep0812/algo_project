@@ -219,3 +219,48 @@
 </div>
 {% endblock %}
 
+
+
+
+
+<body>
+    <div class="container-fluid p-3 my-1 bg-dark text-white">
+      <div class = "row">
+        <div class = "col-md-6">
+          <h2>
+            {{req_problem.name}} 
+          </h2>
+          <p>{{req_problem.description}}</p>
+          <p>{{req_problem.testcase1}}</p>
+          <p>{{req_problem.testcase2}}</p>
+        </div>
+        <div class = "col-md-6">
+          <h2>
+            Compiler
+          </h2>
+          <form method = "POST">
+            {% csrf_token %}
+            <div class="row">
+              <div class = "col-md-12">
+                <div class="form-group">
+                  <label for="code">Code:</label>
+                  <textarea class="form-control" rows="10" name="code" id="code">{{code}}</textarea>
+                </div>
+              </div>
+              <div class = "col-md-12">
+                <div class="form-group">
+                  <label for="input">Input:</label>
+                  <textarea class="form-control" rows="3" id="input" name = "input">{{inputData}}</textarea>
+                </div>
+              </div>
+              <div class = "col-md-12">
+                <div class="form-group">
+                  <label for="output">Output:</label>
+                  <textarea class="form-control" rows="2" id="output" name = "output">{{outputData}}</textarea>
+                </div>
+              </div>
+            </div>
+          </form>
+      </div>
+  </body>
+  {% endblock %}

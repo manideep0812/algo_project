@@ -1,9 +1,12 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from problems.models import problem
 from compiler.views import runCode
+
 # Create your views here.
 
 #to show problems
+@login_required
 def all_problems(request):
     questions = problem.objects.all()
 
@@ -16,11 +19,13 @@ def home_page(request):
 
     return render(request,'base.html')
 
+@login_required
 def contests(request):
 
     return render(request,'contests.html')
 
 #to show details of problem
+@login_required
 def problem_detail(request,id):
     req_problem = problem.objects.get(id=id)
     if request.method == "POST":
