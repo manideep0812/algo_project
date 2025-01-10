@@ -53,7 +53,10 @@
                     <textarea class="form-control" rows="2" id="output" name = "output">{{outputData}}</textarea>
                   </div>            
             </form>
-        </div>
+            <div class="text-center mt-4">
+              <a href="{% url 'problem_detail' req_problem.id %}" class="btn btn-secondary">Run Another Code</a>
+          </div>
+        </div>  
     </div>
 </div>
 {% endblock %}
