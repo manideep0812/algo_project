@@ -73,20 +73,56 @@ def runCode(language, code, inputData):
 
         elif language == "py":
             print(f"Input Data Provided: {inputData}")
-            with open(inputFilePath, "r") as inputText:
-                runResult = subprocess.run(
+            try:
+                # Normalize line endings and clean input data
+                inputData = inputData.replace('\r\n', '\n').replace('\r', '\n')
+                
+                # Remove any trailing whitespace from each line while preserving empty lines
+                input_lines = inputData.split('\n')
+                input_lines = [line.rstrip() for line in input_lines]
+                inputData = '\n'.join(input_lines)
+                
+                # Ensure input data ends with exactly one newline
+                if inputData and not inputData.endswith('\n'):
+                    inputData += '\n'
+                
+                # Create a process with pipe for input/output
+                process = subprocess.Popen(
                     ["python", str(codeFilePath)],
-                    stdin=inputText,
+                    stdin=subprocess.PIPE,
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE,
                     text=True,
+                    encoding='utf-8',
+                    errors='replace'  # Handle any invalid characters gracefully
                 )
-                outputData = runResult.stdout if runResult.returncode == 0 else runResult.stderr
+                
+                # Send input data and get output
+                try:
+                    print(f"Sending input data: {repr(inputData)}")  # Debug print
+                    stdout, stderr = process.communicate(input=inputData, timeout=10)
+                    
+                    # Clean up output data
+                    if stdout:
+                        stdout = stdout.rstrip()  # Remove trailing whitespace
+                    if stderr:
+                        stderr = stderr.rstrip()  # Remove trailing whitespace
+                    
+                    if process.returncode == 0:
+                        outputData = stdout if stdout else "Program executed successfully with no output."
+                    else:
+                        outputData = f"Error:\n{stderr}" if stderr else "Program failed with no error message."
+                except subprocess.TimeoutExpired:
+                    process.kill()
+                    outputData = "Error: Code execution timed out (10 seconds limit)"
+                except Exception as e:
+                    outputData = f"Error during execution: {str(e)}"
+            except Exception as e:
+                outputData = f"Unexpected error: {str(e)}"
     except Exception as e:
         outputData = f"Unexpected error: {str(e)}"
-    print(f"Subprocess STDOUT: {runResult.stdout}")
-    print(f"Subprocess STDERR: {runResult.stderr}")
-    print(f"Subprocess Return Code: {runResult.returncode}")
+    print(f"Output Data: {outputData}")
+    print(f"Process Return Code: {process.returncode if 'process' in locals() else 'N/A'}")
 
     with open(outputFilePath, "w") as outputFile:
         outputFile.write(outputData)
