@@ -107,14 +107,23 @@
     
     <!-- Navbar with Transparent Background -->
     <nav class="navbar navbar-expand-sm navbar-dark">
-        <a class="navbar-brand" href="/">Codedeep</a> <!-- Home button with "Codedeep" text -->
-        <ul class="navbar-nav center"> <!-- Center section with 3 items -->
-            <li class="nav-item">
-                <a class="nav-link" href="/problems">Problems</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/contests">Contests</a>
-            </li>
+        <a class="navbar-brand" href="/">Codedeep</a>
+        <ul class="navbar-nav center">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/problems">Problems</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contests">Contests</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/auth/login">Problems</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/auth/login">Contests</a>
+                </li>
+            {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="/admin">Admin</a>
             </li>
@@ -155,9 +164,13 @@
             for coders of all levels to learn and grow.
         </p>
         <!-- Get Started Button -->
-    <div class="text-center mt-4">
-        <a href="/auth/login" class="btn btn-primary btn-lg">Get Started</a>
-    </div>
+        <div class="text-center mt-4">
+            {% if user.is_authenticated %}
+                <a href="/problems" class="btn btn-primary btn-lg">Get Started</a>
+            {% else %}
+                <a href="/auth/login" class="btn btn-primary btn-lg">Get Started</a>
+            {% endif %}
+        </div>
         {% endblock %}
     </div>
 </body>
