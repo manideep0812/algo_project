@@ -16,6 +16,78 @@
   .form-control-sm {
     width: auto; /* Adjusts the select box width to content */
   }
+
+  .result-container {
+    background-color: #222;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  .verdict-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .verdict-ac {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .verdict-wa {
+    background-color: #F44336;
+    color: white;
+  }
+  
+  .verdict-ce, .verdict-re, .verdict-tle, .verdict-mle {
+    background-color: #FF9800;
+    color: white;
+  }
+  
+  .verdict-se {
+    background-color: #9E9E9E;
+    color: white;
+  }
+  
+  .code-block {
+    background-color: #333;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    overflow-x: auto;
+  }
+  
+  .code-block pre {
+    margin: 0;
+    white-space: pre-wrap;
+    color: white; /* Make text white for better visibility */
+  }
+  
+  h2, h4, h5 {
+    color: white; /* Make headings white */
+  }
+  
+  p {
+    color: #e0e0e0; /* Light gray for paragraphs */
+  }
+  
+  .verdict-description {
+    margin-top: 5px;
+    font-size: 0.9em;
+    font-style: italic;
+  }
+  
+  .problem-text {
+    white-space: pre-wrap; /* Preserves newlines and spaces */
+    font-family: monospace; /* Monospace font for better formatting */
+    background-color: #111; /* Slightly lighter than background */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
 </style>
 
 <div class="container-fluid p-5">
@@ -23,40 +95,79 @@
         <!-- Problem Details Section -->
         <div class="col-md-6 border-right text-left">
             <h2 style="font-weight: bold;">{{ req_problem.name }}</h2>
-            <p>{{ req_problem.description }}</p>
+            <div class="problem-text">{{ req_problem.description }}</div>
             <h5>Test Case 1:</h5>
-            <p>{{ req_problem.testcase1 }}</p>
+            <div class="problem-text">{{ req_problem.testcase1 }}</div>
             <h5>Test Case 2:</h5>
-            <p>{{ req_problem.testcase2 }}</p>
+            <div class="problem-text">{{ req_problem.testcase2 }}</div>
         </div>
 
-        <!-- Compiler Section -->
-        <div class="col-md-6 text-left"> <!-- Add text-left to align elements properly -->
-            <form method="POST">
-                {% csrf_token %}
-
-                <!-- Code Input -->
-                <div class="form-group">
-                    <label for="code">Code:</label>
-                    <textarea class="form-control" rows="10" name="code" id="code">{{code}}</textarea>
+        <!-- Result Section -->
+        <div class="col-md-6 text-left">
+            <h2>Result</h2>
+            
+            {% if submission %}
+                <div class="verdict-badge verdict-{{ submission.verdict|lower }}">
+                    {% if submission.verdict == 'AC' %}
+                        Accepted
+                    {% elif submission.verdict == 'WA' %}
+                        Wrong Answer
+                    {% elif submission.verdict == 'TLE' %}
+                        Time Limit Exceeded
+                    {% elif submission.verdict == 'MLE' %}
+                        Memory Limit Exceeded
+                    {% elif submission.verdict == 'RE' %}
+                        Runtime Error
+                    {% elif submission.verdict == 'CE' %}
+                        Compilation Error
+                    {% elif submission.verdict == 'SE' %}
+                        System Error
+                    {% else %}
+                        {{ submission.verdict }}
+                    {% endif %}
                 </div>
-
-                <!-- Input Space -->
-                <div class="form-group">
-                    <label for="input">Input:</label>
-                    <textarea class="form-control" rows="3" id="input" name="input">{{inputData}}</textarea>
+                
+                <div class="verdict-description">
+                    {% if submission.verdict == 'AC' %}
+                        Your solution is correct! The output matches the expected result.
+                    {% elif submission.verdict == 'WA' %}
+                        Your solution produced incorrect output. Check your logic and try again.
+                    {% elif submission.verdict == 'TLE' %}
+                        Your solution took too long to execute. Try optimizing your algorithm.
+                    {% elif submission.verdict == 'MLE' %}
+                        Your solution used too much memory. Try reducing memory usage.
+                    {% elif submission.verdict == 'RE' %}
+                        Your solution crashed during execution. Check for division by zero, null pointer access, etc.
+                    {% elif submission.verdict == 'CE' %}
+                        Your code couldn't be compiled. Check for syntax errors.
+                    {% elif submission.verdict == 'SE' %}
+                        An unexpected error occurred in the system. Please try again later.
+                    {% endif %}
                 </div>
-
-                <!-- output data -->
-                  <div class="form-group">
-                    <label for="output">Output:</label>
-                    <textarea class="form-control" rows="2" id="output" name = "output">{{outputData}}</textarea>
-                  </div>            
-            </form>
-            <div class="text-center mt-4">
-              <a href="{% url 'problem_detail' req_problem.id %}" class="btn btn-secondary">Run Another Code</a>
-          </div>
-        </div>  
+            {% endif %}
+            
+            <div class="result-container">
+                <h4>Your Code</h4>
+                <div class="code-block">
+                    <pre>{{ code }}</pre>
+                </div>
+                
+                <h4>Input</h4>
+                <div class="code-block">
+                    <pre>{{ inputData }}</pre>
+                </div>
+                
+                <h4>Output</h4>
+                <div class="code-block">
+                    <pre>{{ outputData }}</pre>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="{% url 'problem_detail' req_problem.id %}" class="btn btn-secondary">Try Again</a>
+                    <a href="{% url 'submissions' %}" class="btn btn-primary ml-2">View All Submissions</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    body {
+        background: none;
+        background-color: #000; /* Black background */
+        color: rgb(230, 230, 230); /* Light white text */
+    }
+    
+    .submissions-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background-color: #222;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+    
+    .submissions-table th, .submissions-table td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #444;
+        color: white; /* Make text white for better visibility */
+    }
+    
+    .submissions-table th {
+        background-color: #333;
+        color: #fff;
+        font-weight: bold;
+    }
+    
+    .submissions-table tr:hover {
+        background-color: #2a2a2a;
+    }
+    
+    .verdict-ac {
+        color: #4CAF50; /* Green for Accepted */
+        font-weight: bold;
+    }
+    
+    .verdict-wa {
+        color: #F44336; /* Red for Wrong Answer */
+        font-weight: bold;
+    }
+    
+    .verdict-ce, .verdict-re, .verdict-tle, .verdict-mle {
+        color: #FF9800; /* Orange for other errors */
+        font-weight: bold;
+    }
+    
+    .verdict-se {
+        color: #9E9E9E; /* Gray for System Error */
+        font-weight: bold;
+    }
+    
+    .empty-message {
+        text-align: center;
+        padding: 30px;
+        background-color: #222;
+        border-radius: 5px;
+        margin-top: 20px;
+        color: white; /* Make text white for better visibility */
+    }
+    
+    h2 {
+        color: white; /* Make heading white */
+    }
+    
+    .verdict-tooltip {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .verdict-tooltip .tooltip-text {
+        visibility: hidden;
+        width: 200px;
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -100px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        font-size: 0.9em;
+    }
+    
+    .verdict-tooltip:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+    }
+</style>
+
+<div class="container mt-4">
+    <h2>My Submissions</h2>
+    
+    {% if submissions %}
+        <table class="submissions-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Problem</th>
+                    <th>Language</th>
+                    <th>Verdict</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for submission in submissions %}
+                    <tr>
+                        <td>{{ submission.id }}</td>
+                        <td>
+                            {% if submission.problem %}
+                                <a href="/problems/{{ submission.problem.id }}/">{{ submission.problem.name }}</a>
+                            {% else %}
+                                Custom
+                            {% endif %}
+                        </td>
+                        <td>{{ submission.language }}</td>
+                        <td>
+                            <div class="verdict-tooltip">
+                                <span class="verdict-{{ submission.verdict|lower }}">
+                                    {% if submission.verdict == 'AC' %}
+                                        Accepted
+                                    {% elif submission.verdict == 'WA' %}
+                                        Wrong Answer
+                                    {% elif submission.verdict == 'TLE' %}
+                                        Time Limit Exceeded
+                                    {% elif submission.verdict == 'MLE' %}
+                                        Memory Limit Exceeded
+                                    {% elif submission.verdict == 'RE' %}
+                                        Runtime Error
+                                    {% elif submission.verdict == 'CE' %}
+                                        Compilation Error
+                                    {% elif submission.verdict == 'SE' %}
+                                        System Error
+                                    {% else %}
+                                        {{ submission.verdict }}
+                                    {% endif %}
+                                </span>
+                                <span class="tooltip-text">
+                                    {% if submission.verdict == 'AC' %}
+                                        Your solution is correct! The output matches the expected result.
+                                    {% elif submission.verdict == 'WA' %}
+                                        Your solution produced incorrect output. Check your logic and try again.
+                                    {% elif submission.verdict == 'TLE' %}
+                                        Your solution took too long to execute. Try optimizing your algorithm.
+                                    {% elif submission.verdict == 'MLE' %}
+                                        Your solution used too much memory. Try reducing memory usage.
+                                    {% elif submission.verdict == 'RE' %}
+                                        Your solution crashed during execution. Check for division by zero, null pointer access, etc.
+                                    {% elif submission.verdict == 'CE' %}
+                                        Your code couldn't be compiled. Check for syntax errors.
+                                    {% elif submission.verdict == 'SE' %}
+                                        An unexpected error occurred in the system. Please try again later.
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </td>
+                        <td>{{ submission.timestamp|date:"Y-m-d H:i:s" }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="empty-message">
+            <h4>No submissions yet</h4>
+            <p>Start solving problems to see your submissions here.</p>
+            <a href="/problems" class="btn btn-primary mt-3">Go to Problems</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %} 

@@ -16,6 +16,15 @@
   .form-control-sm {
     width: auto; /* Adjusts the select box width to content */
   }
+  
+  .problem-text {
+    white-space: pre-wrap; /* Preserves newlines and spaces */
+    font-family: monospace; /* Monospace font for better formatting */
+    background-color: #111; /* Slightly lighter than background */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
 </style>
 
 <div class="container-fluid p-5">
@@ -23,11 +32,11 @@
         <!-- Problem Details Section -->
         <div class="col-md-6 border-right text-left">
             <h2 style="font-weight: bold;">{{ req_problem.name }}</h2>
-            <p>{{ req_problem.description }}</p>
+            <div class="problem-text">{{ req_problem.description }}</div>
             <h5>Test Case 1:</h5>
-            <p>{{ req_problem.testcase1 }}</p>
+            <div class="problem-text">{{ req_problem.testcase1 }}</div>
             <h5>Test Case 2:</h5>
-            <p>{{ req_problem.testcase2 }}</p>
+            <div class="problem-text">{{ req_problem.testcase2 }}</div>
         </div>
 
         <!-- Compiler Section -->
