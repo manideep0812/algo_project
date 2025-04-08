@@ -88,6 +88,20 @@
     border-radius: 5px;
     margin-bottom: 15px;
   }
+
+  .expected-output {
+    background-color: #1a472a; /* Dark green background */
+    border-left: 4px solid #4CAF50; /* Green left border */
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+  }
+
+  .expected-output pre {
+    margin: 0;
+    white-space: pre-wrap;
+    color: #a8e6cf; /* Light green text */
+  }
 </style>
 
 <div class="container-fluid p-5">
@@ -157,10 +171,17 @@
                     <pre>{{ inputData }}</pre>
                 </div>
                 
-                <h4>Output</h4>
+                <h4>Your Output</h4>
                 <div class="code-block">
                     <pre>{{ outputData }}</pre>
                 </div>
+
+                {% if submission.verdict == 'WA' and submission.expectedOutput %}
+                <h4>Expected Output</h4>
+                <div class="expected-output">
+                    <pre>{{ submission.expectedOutput }}</pre>
+                </div>
+                {% endif %}
                 
                 <div class="text-center mt-4">
                     <a href="{% url 'problem_detail' req_problem.id %}" class="btn btn-secondary">Try Again</a>
