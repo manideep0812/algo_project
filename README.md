@@ -2,9 +2,8 @@
 
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 ![Python](https://img.shields.io/badge/Python-3.8%2B-blue)
-![License](https://img.shields.io/badge/license-MIT-lightgrey)
 ![Docker](https://img.shields.io/badge/docker-enabled-blue)
-![Status](https://img.shields.io/badge/status-active-success)
+
 
 CodeDeep is a scalable, containerized **online judge platform** developed using Django, Docker, and AWS. It allows users to submit coding solutions which are executed securely in Docker containers and tested against predefined test cases.
 
